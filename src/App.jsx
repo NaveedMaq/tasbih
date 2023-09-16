@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { playNotificationSound } from './NotificationSound';
 import Button from './ui/Button';
 
+const DEFAULT_MAX_COUNT = 600;
+
 const mainStyle = {
   padding: '2rem',
   display: 'flex',
@@ -22,15 +24,16 @@ const arabicStyle = {
 };
 
 function App() {
-  const [maxCount, setMaxCount] = useState(600);
+  const [maxCount, setMaxCount] = useState(DEFAULT_MAX_COUNT);
   const [count, setCount] = useState(0);
   const [status, setStatus] = useState('');
 
   const [isMaxCountVisible, setIsMaxCountVisible] = useState(false);
 
   useEffect(() => {
-    setCount(localStorage.getItem('count') * 1);
-  }, []);
+    const localCount = localStorage.getItem('count') * 1;
+    setCount(localCount >= maxCount ? 0 : localCount);
+  }, [maxCount]);
 
   useEffect(() => {
     if (count === 0) setStatus('Start Dhikr by clicking increment!');

@@ -1,4 +1,4 @@
-const Button = ({ children, onClick }) => {
+const Button = ({ children, onClick, disabled = false }) => {
   // Define your button styles as a JavaScript object
   const buttonStyles = {
     backgroundColor: '#444',
@@ -12,7 +12,7 @@ const Button = ({ children, onClick }) => {
   };
 
   return (
-    <button style={buttonStyles} onClick={onClick}>
+    <button style={buttonStyles} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );

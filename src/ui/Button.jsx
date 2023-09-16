@@ -1,14 +1,13 @@
-const Button = ({ children, onClick, disabled = false }) => {
+const Button = ({ children, onClick, size = 5, disabled = false }) => {
   // Define your button styles as a JavaScript object
   const buttonStyles = {
     backgroundColor: '#444',
     color: '#fff',
-    padding: '5px 10px',
+    padding: `${size}px ${size * 2}px`,
     border: 'none',
-    borderRadius: '15px',
+    borderRadius: `${size * 3 > 15 ? 15 : size * 3}px`,
     cursor: 'pointer',
-    fontSize: '16px',
-    // display: 'inline-block',
+    fontSize: `${size * 3}px`,
   };
 
   return (

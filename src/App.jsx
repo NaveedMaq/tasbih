@@ -5,12 +5,11 @@ import Button from './ui/Button';
 const DEFAULT_MAX_COUNT = 600;
 
 const mainStyle = {
-  padding: '2rem',
+  padding: '0rem 0 2rem 0',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-
   textAlign: 'center',
   width: 'fit-content',
   margin: '2rem auto',
@@ -60,10 +59,19 @@ function App() {
   return (
     <main style={mainStyle}>
       <h3>Durood e Khizri</h3>
-      <h1 style={arabicStyle}>بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</h1>
-      <h1 style={arabicStyle}>
-        صَلَّى اللهُ عَلَىٰ حَبِيبِهِ مُحَمَّدٍ وَآلِهِ وَسَلَّمْ
-      </h1>
+      <div
+        style={{
+          marginBottom: '2rem',
+          borderTop: '1px solid #666',
+          borderBottom: '1px solid #666',
+          padding: '0 1rem',
+        }}
+      >
+        <h1 style={arabicStyle}>بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</h1>
+        <h1 style={arabicStyle}>
+          صَلَّى اللهُ عَلَىٰ حَبِيبِهِ مُحَمَّدٍ وَآلِهِ وَسَلَّمْ
+        </h1>
+      </div>
       <Button onClick={reset}>Start / Restart Dhikr</Button>
       {isMaxCountVisible && (
         <input
@@ -77,8 +85,8 @@ function App() {
       <h2>
         {count}/{maxCount}
       </h2>
-      <Button onClick={increment}>
-        <h3>Increment Count</h3>
+      <Button onClick={increment} size={10}>
+        Increment Count
       </Button>
     </main>
   );

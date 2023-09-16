@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { playNotificationSound } from './NotificationSound';
 import Button from './ui/Button';
 
-const maxCount = 10;
-
 const mainStyle = {
   padding: '2rem',
   display: 'flex',
@@ -24,8 +22,11 @@ const arabicStyle = {
 };
 
 function App() {
+  const [maxCount, setMaxCount] = useState(600);
   const [count, setCount] = useState(0);
   const [status, setStatus] = useState('');
+
+  const [isMaxCountVisible, setIsMaxCountVisible] = useState(false);
 
   useEffect(() => {
     setCount(localStorage.getItem('count') * 1);
@@ -35,9 +36,10 @@ function App() {
     if (count === 0) setStatus('Start Dhikr by clicking increment!');
     else if (count >= maxCount) setStatus('Dhikr Completed!');
     else setStatus('Doing Dhikr ...');
-  }, [count]);
+  }, [count, maxCount]);
 
   function increment() {
+    setIsMaxCountVisible(false);
     if (count >= maxCount - 1) playNotificationSound();
     if (count >= maxCount) return;
 
@@ -49,6 +51,7 @@ function App() {
     localStorage.setItem('count', 0);
     setCount(0);
     playNotificationSound();
+    setIsMaxCountVisible((i) => !i);
   }
 
   return (
@@ -58,7 +61,15 @@ function App() {
       <h1 style={arabicStyle}>
         صَلَّى اللهُ عَلَىٰ حَبِيبِهِ مُحَمَّدٍ وَآلِهِ وَسَلَّمْ
       </h1>
-      <Button onClick={reset}>Restart dhikr</Button>
+      <Button onClick={reset}>Start / Restart Dhikr</Button>
+      {isMaxCountVisible && (
+        <input
+          type='number'
+          placeholder='Enter Dhikr Count'
+          value={maxCount}
+          onChange={(e) => setMaxCount(e.target.value)}
+        />
+      )}
       <h3>{status}</h3>
       <h2>
         {count}/{maxCount}
